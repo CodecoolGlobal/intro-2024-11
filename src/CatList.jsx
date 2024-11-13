@@ -11,16 +11,14 @@ export default function CatList() {
         { name: 'Tira', image: 'https://cdn2.thecatapi.com/images/8CuEPFNuD.jpg' },
     ]);
     const [globalClickCounter, setGlobalClickCounter] = useState(0);
+    const [catInfo, setCatInfo] = useState('');
 
     function incrementCounter() {
         setGlobalClickCounter(oldValue => oldValue + 1);
     }
 
     function printCatInfo(name, count) {
-        // befejezni ezt
-        // alternatívák (context, redux)
-        // app mappastruktúrája
-        // i18n
+        setCatInfo(`Last cat: ${name} (${count})`);
     }
 
     return (
@@ -29,12 +27,13 @@ export default function CatList() {
                 const sortedCats = cats.sort((a, b) => {
                     return a.name > b.name ? 1 : -1;
                 });
-
-                setCats([...sortedCats]);
+            
+                setCats([...sortedCats.slice(1)]);
             }}>Sort by name</button>
             <br />
 
             <h1>{globalClickCounter}</h1>
+            <h2>{catInfo}</h2>
 
             <div className="cats">
                 {cats.map((cat) => (
