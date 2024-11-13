@@ -1,17 +1,24 @@
 import './App.css';
 
-import Counter from "./Counter";
-import Greeting from "./Greeting";
 import CatList from "./CatList";
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import CatDetails from './CatDetails';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <CatList />
+  },
+  {
+    path: '/cat/:id',
+    element: <CatDetails />
+  }
+]);
 
 function App() {
   return (
     <div className="App">
-      {/* <Greeting name="Gábor" age="20" />
-      <Greeting name="Anna" age="30" />
-      <Counter /> */}
-
-      <CatList />
+      <RouterProvider router={router} />
     </div>
   );
 }

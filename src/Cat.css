@@ -1,3 +1,12 @@
 img.cat-image {
     width: 300px;
 }
+
+a {
+    color: darkslategray;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}

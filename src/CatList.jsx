@@ -1,17 +1,20 @@
 import './CatList.css';
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Cat from "./Cat";
 
 export default function CatList() {
-    const [cats, setCats] = useState([
-        { name: 'Whiskers', image: 'https://cdn2.thecatapi.com/images/2h7.jpg' },
-        { name: 'Mittens', image: 'https://cdn2.thecatapi.com/images/MTU4NTQ2MA.jpg' },
-        { name: 'Cirmi', image: 'https://cdn2.thecatapi.com/images/99h.jpg' },
-        { name: 'Tira', image: 'https://cdn2.thecatapi.com/images/8CuEPFNuD.jpg' },
-    ]);
+    const [cats, setCats] = useState([]);
     const [globalClickCounter, setGlobalClickCounter] = useState(0);
     const [catInfo, setCatInfo] = useState('');
+
+    useEffect(function () {
+        fetch('https://api.thecatapi.com/v1/images/search?limit=10')
+            .then(response => response.json())
+            .then(data => {
+                setCats(data);
+            })
+    }, []);
 
     function incrementCounter() {
         setGlobalClickCounter(oldValue => oldValue + 1);
@@ -25,7 +28,7 @@ export default function CatList() {
         <div className="CatList">
             <button onClick={() => {
                 const sortedCats = cats.sort((a, b) => {
-                    return a.name > b.name ? 1 : -1;
+                    return a.id > b.id ? 1 : -1;
                 });
             
                 setCats([...sortedCats.slice(1)]);
@@ -37,7 +40,7 @@ export default function CatList() {
 
             <div className="cats">
                 {cats.map((cat) => (
-                    <Cat printCatInfo={printCatInfo} incrementCounter={incrementCounter} key={cat.name} name={cat.name} image={cat.image} />
+                    <Cat printCatInfo={printCatInfo} incrementCounter={incrementCounter} key={cat.id} id={cat.id} url={cat.url} />
                 ))}
             </div>
         </div>

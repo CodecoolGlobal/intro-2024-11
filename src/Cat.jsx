@@ -1,33 +1,16 @@
+import { Link } from 'react-router-dom';
 import './Cat.css';
 
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
-export default function Cat ({printCatInfo, incrementCounter, name, image}) {
+export default function Cat ({printCatInfo, incrementCounter, id, url}) {
     const [isSelected, setIsSelected] = useState('-');
 
     const [clickCount, setClickCount] = useState(0);
 
-    const [color, setColor] = useState('white');
-
-    useEffect(function () {
-        console.log('mount');
-
-        // strict mode
-
-        /* Szabályok:
-            - nem lehet async
-            - felsorolni minden használt propot és state-et
-        */
-
-        return function () {
-            console.log(name + ' unmounted');
-        }
-
-    }, [name])
-
     return (
         <div>
-            <h1>{name} ({isSelected})</h1>
+            <h1><Link to={ `/cat/${id}` }>{id}</Link> ({isSelected})</h1>
 
             <button onClick={() => {
                 setIsSelected('Selected');
@@ -37,13 +20,13 @@ export default function Cat ({printCatInfo, incrementCounter, name, image}) {
             <button onClick={() => {
                 setClickCount(oldValue => oldValue + 1);
                 incrementCounter();
-                printCatInfo(name, clickCount);
+                printCatInfo(id, clickCount);
             }}>
                 Click ({clickCount})
             </button>
             <br />
 
-            <img className='cat-image' src={image} alt={name} />
+            <img className='cat-image' src={url} alt={id} />
         </div>
     )
 }
