@@ -1,3 +1,4 @@
+import { Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 
@@ -17,7 +18,10 @@ export default function CatDetails() {
         catData
             ?
             (<div className="CatDetails">
-                <h1>{catData.id}</h1>
+                <Typography
+                    component="h1"
+                    variant="h4"
+                >{catData.id}</Typography>
                 {
                     catData.breeds && <div>
                         <p>Breed: {catData.breeds[0].name}</p>

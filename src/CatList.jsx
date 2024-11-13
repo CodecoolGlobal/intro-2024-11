@@ -2,6 +2,7 @@ import './CatList.css';
 
 import { useEffect, useState } from "react";
 import Cat from "./Cat";
+import { Button } from '@mui/material';
 
 export default function CatList() {
     const [cats, setCats] = useState([]);
@@ -26,13 +27,13 @@ export default function CatList() {
 
     return (
         <div className="CatList">
-            <button onClick={() => {
+            <Button variant="contained" onClick={() => {
                 const sortedCats = cats.sort((a, b) => {
                     return a.id > b.id ? 1 : -1;
                 });
             
                 setCats([...sortedCats.slice(1)]);
-            }}>Sort by name</button>
+            }}>Sort by name</Button>
             <br />
 
             <h1>{globalClickCounter}</h1>
