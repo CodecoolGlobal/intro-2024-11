@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 
 export default function CatDetails() {
     const { id } = useParams();
@@ -39,10 +39,19 @@ export default function CatDetails() {
 
         fetchData();
         // AbortController
+
+        const intervalId = setInterval(() => {
+            console.log(new Date().getTime());
+        }, 1000);
+
+        return () => {
+            clearInterval(intervalId);
+        }
     }, [id])
 
     return (
         <>
+            <Link to="/">Vissza</Link>
             {catData && !loading && (<div className="CatDetails">
                 <Typography
                     component="h1"
