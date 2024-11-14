@@ -1,45 +1,13 @@
 import { Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom"
+import useFetch from "./useFetch";
 
 export default function CatDetails() {
     const { id } = useParams();
-    const [catData, setCatData] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+    const { data: catData, loading, error } = useFetch(`https://api.thecatapi.com/v1/images/${id}`);
 
     useEffect(() => {
-        async function fetchData() {
-            setLoading(true);
-            setError(null);
-            try {
-                // fetch('...')
-                //     .then(...)
-                //     .catch((error) => {
-
-                //     })
-                //     .finally(() => {
-
-                //     });
-
-
-                const response = await fetch(`https://api.thecatapi.com/v1/images/${id}`);
-                if (!response.ok) {
-                    throw new Error("Failed to load cat.");
-                }
-
-                const data = await response.json();
-                setCatData(data);
-            } catch (error) {
-                setError(error.message);
-            } finally {
-                setLoading(false);
-            }
-        }
-
-        fetchData();
-        // AbortController
-
         const intervalId = setInterval(() => {
             console.log(new Date().getTime());
         }, 1000);
@@ -47,7 +15,7 @@ export default function CatDetails() {
         return () => {
             clearInterval(intervalId);
         }
-    }, [id])
+    }, [id]);
 
     return (
         <>
