@@ -1,17 +1,22 @@
 import { Link } from 'react-router-dom';
 import './Cat.css';
 
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { Button, Card } from '@mui/material';
+import { ThemeContext } from './ThemeContext';
 
 export default function Cat ({printCatInfo, incrementCounter, id, url}) {
     const [isSelected, setIsSelected] = useState('-');
 
     const [clickCount, setClickCount] = useState(0);
 
+    const { theme } = useContext(ThemeContext);
+
     return (
         <Card variant="outlined">
             <h1><Link to={ `/cat/${id}` }>{id}</Link> ({isSelected})</h1>
+
+            <p>Theme: {theme}</p>
 
             <Button sx={{ marginBottom: '20px' }} variant="contained" onClick={() => {
                 setIsSelected('Selected');

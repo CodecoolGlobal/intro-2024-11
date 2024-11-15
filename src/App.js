@@ -3,6 +3,7 @@ import './App.css';
 import CatList from "./CatList";
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import CatDetails from './CatDetails';
+import { ThemeProvider } from './ThemeContext';
 
 const router = createBrowserRouter([
   {
@@ -17,9 +18,12 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <div className="App">
-      <RouterProvider router={router} />
-    </div>
+    <ThemeProvider>
+      <div className="App">
+        <RouterProvider router={router} />
+      </div>
+    </ThemeProvider>
+
   );
 }
 
